@@ -55,4 +55,10 @@ let student1 = new usr('rakib','sorry')
 let student2 = new usr('sakib','mar56969')
 
 let admin1 = new admin('admin','admin@admin')*/
+function hello(){
+    console.log('hello')
+}
 
+setTimeout(()=>{
+    console.log('h')
+},2000)

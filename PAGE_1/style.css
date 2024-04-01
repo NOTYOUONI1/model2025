@@ -2,87 +2,68 @@
     margin: 0;
     padding: 0;
 }
-body{
-    background-color: blanchedalmond;
-    text-align: center;
+.game{
+    margin-top: 80px;
 }
 h1{
-    height: 50px;
-    background-color: darkslategrey;
+    background-color: aquamarine;
+    text-align: center;
+    line-height: 70px;
 }
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .box{
-    border: none;
-    background-color: rgb(255, 250, 250);
-    color: rgb(0, 0, 0);
-    height: 18vmin;
-    width: 18vmin;
-    border-radius: 9px;
-    font-size: 40px;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    padding: 35px;
+    border: 5px solid white;
+    margin: 6px;
 }
-.box:hover{
-    background-color: aqua;
-    color: rgb(0, 0, 0);
+.box:hover,.reset:hover,.start:hover{
+    border: 5px solid pink;
 }
-.contaner{
-    background-color:blanchedalmond;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+img{
+    height: 150px;
 }
-.game{
-    height: 60vmin;
-    width: 60vmin;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(164, 99, 15);
-    border-radius: 9px;
-    gap: 1.5vmin;
-}
-#reset{
-    border: none;
-    background-color: rgb(198, 169, 64);
-    color: cadetblue;
-    height: 45px;
-    width: 120px;
+
+.winner{
+    background-color: rgb(105, 9, 9);
+    width: 500px;
+    height: 70px;
     border-radius: 25px;
-    margin-top: 5px;
-    font-size: 20px
 }
-#reset:hover{
-    border: 4px solid paleturquoise;
-}
-
-
-.res{
-    background-color: rgb(255, 255, 255);
-    height: 55px;
-    width:350px;border-radius: 25px;
-    margin-left: 9px;
+.reset{
+    background-color: rgb(16, 125, 168);
+    width: 200px;
+    height: 70px;
+    border-radius: 25px;
+    text-align: center;
     font-size: 50px;
+    border: 5px solid white;
 }
-.res_div{
+
+.start{
+    background-color: rgb(16, 125, 168);
+    width: 200px;
+    height: 70px;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 40px;
+    border: 5px solid white;
+}
+
+.s_row{
+    display: flex;
+    gap: 30px;
     display: flex;
     justify-content: center;
-    margin-top:9px;
-}
-.br{
-    background-color: rgb(0, 255, 13);
-    color: wheat;
-}
-#start{
-    border: none;
-    background-color:greenyellow;
-    color: cadetblue;
-    height: 45px;
-    width: 120px;
-    border-radius: 25px;
-    margin-top: 5px;
-    font-size: 20px;
-    margin-left: 8px;
-
-}
-#start:hover{
-    border: 4px solid rgb(7, 117, 117);
+    align-items: center;
+    margin-top: 80px;
 }

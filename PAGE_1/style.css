@@ -42,20 +42,16 @@ img{
 .reset{
     background-color: rgb(16, 125, 168);
     width: 200px;
-    height: 70px;
     border-radius: 25px;
     text-align: center;
-    font-size: 50px;
     border: 5px solid white;
 }
 
 .start{
     background-color: rgb(16, 125, 168);
     width: 200px;
-    height: 70px;
     border-radius: 25px;
     text-align: center;
-    font-size: 40px;
     border: 5px solid white;
 }
 
@@ -66,4 +62,35 @@ img{
     justify-content: center;
     align-items: center;
     margin-top: 80px;
+}
+
+.winner{
+    font-size: 50px;
+    text-align: center;
+}
+.reset{
+    font-size: 25px;
+    text-align: center;
+    line-height: 55px;
+}
+
+.start{
+    font-size: 25px;
+    line-height: 55px;
+}
+
+.fffg{
+    font-size:25px;
+    line-height:55px;
+    background-color: brown;
+    color: blanchedalmond;
+    width: 300px;
+    border-radius: 25px;
+    text-align: center;
+    margin-top: 8px;
+}
+.hjg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

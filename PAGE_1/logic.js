@@ -1,13 +1,3 @@
-class user {
-    constructor(name,email){
-        this.name = name
-        this.email = email
-    }
-    viewdata(){
-        console.log('data','name :',this.name,'email :',this.email)
-    }
-}
-
-
-
-let g = new user("rakib","sorry")
+let g = 1
+let j = 2
+console.log(g+j)

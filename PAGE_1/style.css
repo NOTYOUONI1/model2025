@@ -2,95 +2,46 @@
     margin: 0;
     padding: 0;
 }
-.game{
-    margin-top: 80px;
+
+body{
+    background-color: bisque;
 }
-h1{
+.main_cover{
+    height: 400px;
+    width: 400px;
     background-color: aquamarine;
-    text-align: center;
-    line-height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
 }
-.row{
+.main_back{
+    height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-
-.box{
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
-    padding: 35px;
-    border: 5px solid white;
-    margin: 6px;
+.jj{
+    border: none;
+    border-radius: 10px;
 }
-.box:hover,.reset:hover,.start:hover{
-    border: 5px solid pink;
+input{
+    border: none;
+    border-radius: 10px;
+    height: 25px;
+    width: 250px;
+    margin: 10px;
 }
-
-img{
-    height: 150px;
-}
-
-.winner{
-    background-color: rgb(105, 9, 9);
-    width: 500px;
-    height: 70px;
-    border-radius: 25px;
-}
-.reset{
-    background-color: rgb(16, 125, 168);
+.submit{
+    margin: 8px 0px 0px 20px;
+    border: none;
+    height: 60px;
     width: 200px;
-    border-radius: 25px;
-    text-align: center;
-    border: 5px solid white;
+    background-color: rgb(42, 144, 110);
+    border-radius: 10px;
+    font-size:30px;
 }
-
-.start{
-    background-color: rgb(16, 125, 168);
-    width: 200px;
-    border-radius: 25px;
-    text-align: center;
-    border: 5px solid white;
-}
-
-.s_row{
-    display: flex;
-    gap: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 80px;
-}
-
-.winner{
-    font-size: 50px;
-    text-align: center;
-}
-.reset{
-    font-size: 25px;
-    text-align: center;
-    line-height: 55px;
-}
-
-.start{
-    font-size: 25px;
-    line-height: 55px;
-}
-
-.fffg{
-    font-size:25px;
-    line-height:55px;
-    background-color: brown;
-    color: blanchedalmond;
-    width: 300px;
-    border-radius: 25px;
-    text-align: center;
-    margin-top: 8px;
-}
-.hjg{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.submit:hover{
+    border: 3px solid gold;
 }

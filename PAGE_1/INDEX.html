@@ -3,23 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>login</title>
+    <title>Document</title>
 </head>
 <body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .main_back{
+            height: 100vh;
+            background-color: aqua;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main_cover{
+            height: 45vh;
+            width: 27vw;
+            background-color: bisque;
+            border-radius: 10px;
+
+        }
+        .d{
+            height: 210px;
+            width: 210px;
+            background-color: blue;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 3px;
+        }
+    </style>
     <div class="main_back">
         <div class="main_cover">
-            <form action="" name="frame" onsubmit="return dd()">
-                <div class="user">
-                    USERNAME<input type="text">
-                </div>
-                <div class="pass">
-                    PASSWORD<input type="password">
-                </div>
-                <button class="submit" >submit</button>
-            </form>
-        </div>
+            <!--<div class="6">
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+            </div>-->
+            <div class="5" style="visibility:hidden;">
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+            </div>
+            <div class="4" style="visibility:none;">
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+            </div>
+            <div class="3" style="visibility:none;">
+                <div class="d"></div>
+                <div class="d"></div>
+                <div class="d"></div>
+            </div>
+            <div class="2" style="visibility:none;">
+                <div class="d"></div>
+                <div class="d"></div>
+            </div>
+            <div class="1"style="visibility:none;">
+                <div class="d"></div>
+        </div>-->
     </div>
-    <script src="logic.js"></script>
+    <script>
+        let click = document.querySelector(".main_cover")
+
+        function rendomNum(){
+            let gg = Math.floor(Math.random() * 7)
+            return gg
+        }
+
+        click.addEventListener("click",()=>{
+            console.log(rendomNum())
+        })
+    </script>
 </body>
-</html>
+</htm

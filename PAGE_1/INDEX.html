@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: aquamarine;
+        }
+        .logo{
+            background-color: rgb(3, 33, 33);
+            height: 9vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .logo img{
+            height: 5vh;
+            border-radius: 50%;
+            font-size: 40px;
+        }
+        h1{
+            margin: 20px;
+        }
+        .main{
+            height: 91vh;
+            background-color: antiquewhite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .botttomPhoto{
+            height: 70vh;
+            width: 70vw;
+            background-color: rgb(4, 47, 47);
+            top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .side{
+            height: 20vh;
+            width: 100vw;
+            background-color: rgb(8, 8, 62);
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .back{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input{
+            width: 75vw;
+            display: block;
+        }
+        i{
+            margin-top: 2vh;
+        }
+        .botttomPhoto img{
+            height: 65vh;
+        }
+    </style>
+    <div class="back">
+        <div class="top">
+            <div class="logo">
+                <img src="https://marketplace.canva.com/EAE78mYI9ug/5/0/1600w/canva-black-and-white-music-studio-logo-Gc2_olDt0BM.jpg" alt="logo" id="logo">
+                <h1>Home</h1>
+                <h1>Abuot</h1>
+            </div>
+        </div>
+        <div class="botttomPhoto">
+            <img src="https://i.ytimg.com/vi/CYZ1t-slfJU/sddefault.jpg" alt="musigThemel">
+        </div>
+        <div class="side">
+            <input type="range"id="range" min="0" max="100">
+            <i class="fa-solid fa-play"></i>
+        </div>
+    </div>
+    <script>
+        const i = document.querySelector('i')
+
+        function playAdiuo(){
+            let odiuo = new Audio(".kk.mp3")
+            odiuo.play()
+        }
+
+        i.addEventListener('click',()=>{
+            console.log(document.querySelector('input').value)
+            playAdiuo
+        })
+    </script>
+</body>
+</html>

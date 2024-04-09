@@ -41,12 +41,16 @@
         }
         .botttomPhoto{
             height: 70vh;
-            width: 70vw;
+            width: 80vw;
             background-color: rgb(4, 47, 47);
             top: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .botttomPhoto img{
+            height: 100%;
+            border-radius: 10px;
         }
         .side{
             height: 20vh;
@@ -70,6 +74,7 @@
         }
         i{
             margin-top: 2vh;
+            font-size: 27px;
         }
         .botttomPhoto img{
             height: 65vh;
@@ -84,7 +89,7 @@
             </div>
         </div>
         <div class="botttomPhoto">
-            <img src="https://i.ytimg.com/vi/CYZ1t-slfJU/sddefault.jpg" alt="musigThemel">
+            <img src="https://s2.dmcdn.net/v/7UIpR1UPxB6G4wrTC/x1080" alt="musigThemel">
         </div>
         <div class="side">
             <input type="range"id="range" min="0" max="100">
@@ -93,15 +98,40 @@
     </div>
     <script>
         const i = document.querySelector('i')
+        const odiuo = new Audio("kk23.mp3")
+        let ff = false
 
         function playAdiuo(){
-            let odiuo = new Audio(".kk.mp3")
             odiuo.play()
         }
 
+        function pauseAdiuo(){
+            odiuo.pause()
+        }
+
         i.addEventListener('click',()=>{
-            console.log(document.querySelector('input').value)
-            playAdiuo
+            const oo = document.querySelector('input')
+            if(ff == false){
+                ff = true
+            } else{
+                ff = false
+            }
+            console.log(ff)
+            if(ff){
+                playAdiuo()
+                i.classList.replace('fa-play','fa-pause')
+            } else{
+                //pauseAdiuo()
+                pauseAdiuo()
+                i.classList.replace('fa-pause','fa-play')
+            }   
+            console.log(oo)
+        })
+
+        odiuo.addEventListener('timeupdate',()=>{
+            const p = parseInt((odiuo.currentTime/odiuo.duration)*100)
+            oo.value = p
+            console.log()
         })
     </script>
 </body>

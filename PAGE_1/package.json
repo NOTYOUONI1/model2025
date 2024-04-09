@@ -1,3 +1,14 @@
 {
-    "type":"commonjs"
+  "name": "package",
+  "version": "1.0.0",
+  "description": "practic",
+  "main": "lep.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "O N I",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }

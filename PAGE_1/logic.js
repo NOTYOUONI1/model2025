@@ -1,4 +1,8 @@
-const fs = require('fs');
+const fs = require('fs')
 
-const open = fs.readFile('damo.txt')
-console.log(open)
+const b = fs.writeFile('damo.txt',"gg",()=>{
+    console.log('Written to the file')
+})
+
+const a = fs.readFileSync('damo.txt')
+console.log(a.toString())

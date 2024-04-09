@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<style>
+		body{
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		}
+		.H-H{
+	
+		  background-color:pink;
+		  height: 36vh;
+		  width: 14vw;
+		  border-radius: 10px;
+		  display: flex;
+		  flex-direction: column;
+		  align-items: center;
+		}
+		.Bod{
+			height:70px;
+			width: 70px;
+			margin: 5px;
+			border-radius: 10px;
+			border: none;
+			font-size: 20px;
+			font-family: 'Times New Roman', Times, serif;
+		}
+		input{
+			height: 50px;
+			width: 290px;
+			border-radius: 10px;
+			margin: 20px 0px 35px 0px;
+			border: none;
+			color: aqua;
+			font-size: 20px;
+			font-family: 'Times New Roman', Times, serif;
+		}
+		.Bod:hover{
+			border: 2px solid red;
+		}
+	  </style>
+	  <div>
+		<div class="H-H">
+			<input type="text">
+		  <div class="row">
+			<button class="Bod">7</button>
+			<button class="Bod">8</button>
+			<button class="Bod">9</button>
+			<button class="Bod">X</button>
+		  <div>
+		  <div class="row">
+			<button class="Bod">4</button>
+			<button class="Bod">5</button>
+			<button class="Bod">6</button>
+			<button class="Bod">-</button>
+		  <div>
+		  <div class="row">
+			<button class="Bod">3</button>
+			<button class="Bod">2</button>
+			<button class="Bod">1</button>
+			<button class="Bod">+</button>
+		  <div>
+		  <div class="row">
+			<button class="Bod">0</button>
+			<button class="Bod">.</button>
+			<button class="Bod">AC</button>
+			<button class="Bod">=</button>
+		  <div
+		</div>
+	  </div>
+	  <script>
+		const btns = document.querySelectorAll('.Bod');
+	let string = '';
+
+	btns.forEach((btn) => {
+    	btn.addEventListener('click', (e) => {
+        	const btnValue = e.target.innerHTML;
+        
+        	if (btnValue === '=') {
+            	string = eval(string);
+            	document.querySelector('input').value = string;
+        	} else {
+            	string = string + btnValue;
+            	document.querySelector('input').value = string;
+        	}
+    	});
+	});
+
+	</script>
+</body>
+</html>

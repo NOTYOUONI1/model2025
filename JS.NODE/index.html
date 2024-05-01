@@ -1,11 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sample HTML</title>
 </head>
+
 <body>
-    Hi brathers and sister
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main_back {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background: linear-gradient(45deg, #08001f, #30197d);
+        }
+
+        .main {
+            display: flex;
+            justify-self: center;
+            align-items: center;
+            background-color: aquamarine;
+            height: 500px;
+            width: 500px;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .select {
+            display: ;
+            outline: none;
+            border: none;
+            background-color: cadetblue;
+            height: 25px;
+            width: 35px;
+            text-align: center;
+            border-radius: 3px;
+            box-shadow: 1px 1px 2px rgb(22, 39, 40);
+            margin: 10px;
+        }
+
+        input {
+            border: none;
+            box-shadow: 1px 1px 2px;
+            height: 25px;
+            width: 200px;
+            border-radius: 5px;
+            text-align: center;
+            background: transparent;
+            outline: none;
+        }
+
+        button {
+            display: block;
+            border: none;
+            width: 450px;
+            height: 25px;
+            border-radius: 5px;
+            background-color: darkcyan;
+            margin-top: 10px;
+        }
+
+        textarea {
+            outline: none;
+            background: transparent;
+            border: none;
+            box-shadow: 1px 1px 2px;
+            margin: 25px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .hover:hover {
+            background-color: rgb(3, 72, 74);
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+    <div class="main_back">
+        <div class="main">
+            <form id="calculator-form">
+                <div>
+                    <input type="number" placeholder="x" name="x" id="x">
+                    <select name="operation" id="operation" class="select">
+                        <option value="multiply">X</option>
+                        <option value="add">+</option>
+                        <option value="subtract">-</option>
+                        <option value="divide">/</option>
+                        <option value="remainder">%</option>
+                    </select>
+                    <input type="number" name="y" id="y" placeholder="y">
+                </div>
+                <textarea name="result" id="result" cols="30" rows="10" placeholder="Result"></textarea>
+                <div>
+                    <button type="submit">=</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('calculator-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const x = parseFloat(document.getElementById('x').value);
+            const y = parseFloat(document.getElementById('y').value);
+            const operation = document.getElementById('operation').value;
+            let result;
+
+            switch (operation) {
+                case 'multiply':
+                    result = x * y;
+                    break;
+                case 'add':
+                    result = x + y;
+                    break;
+                case 'subtract':
+                    result = x - y;
+                    break;
+                case 'divide':
+                    result = x / y;
+                    break;
+                case 'remainder':
+                    result = x % y;
+                    break;
+                default:
+                    result = "Invalid operation";
+            }
+
+            document.getElementById('result').value = result;
+        });
+    </script>
+
 </body>
+
 </html>

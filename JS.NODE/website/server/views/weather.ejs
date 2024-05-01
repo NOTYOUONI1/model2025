@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .main_back {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(93, 179, 150);
+            position: sticky;
+        }
+        .main1{
+            height: 350px;
+            width: 250px;
+            position: absolute;
+        }
+        .main1::before{
+            content:'';
+            height: 100px;
+            width: 100px;
+            border-radius: 5px;
+            background-color: rgb(16, 105, 96);
+            position: absolute;
+            left: -30px;
+            top:-30px;
+            z-index:-1;
+        }
+        .main1::after{
+            content:'';
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            background-color: rgb(66, 225, 38);
+            position: absolute;
+            bottom: -30px;
+            right:-30px;
+            z-index:-1;
+        }
+        .main {
+            height: 100%;
+            width: 100%px;
+            background:transparent;
+            backdrop-filter: blur(40px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #first {
+            position: relative;
+            top: -110px;
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+            /* This adds a solid black bottom border */
+            outline: none;
+            text-align: center;
+            height: 23px;
+            width: 150px;
+        }
+
+        button {
+            border: none;
+            height: 27px;
+            width: 90px;
+            border-radius: 5px;
+            background-color: cadetblue;
+        }
+
+        button:hover {
+            background-color: rgb(219, 157, 12);
+        }
+
+        p {
+            display: inline;
+        }
+
+        .h-h {
+            display: flex;
+            position: relative;
+            bottom: -85px;
+        }
+        .min{
+            margin-right:20px;
+        }
+    </style>
+    <div class="main_back">
+        <div class="main1">
+            <div class="main">
+                <div id="first">
+                    <input type="text" id="inp" placeholder="city name">
+                    <button>check wather</button>
+                </div>
+                <div>
+                    <h1 id="cunty"></h1>
+                    <h3 id="current">20°C</h3>
+                </div>
+                <div class="h-h">
+                    <div class="min">
+                        <h1>Min</h1>
+                        <P id="min">35°C</P>
+                    </div>
+                    <div class="max">
+                        <h1>Max</h1>
+                        <p id="max">56°C</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let current = document.getElementById('current')
+        let min = document.getElementById('min')
+        let max = document.getElementById('max')
+        let btn = document.querySelector('button')
+        const inp = document.querySelector('#inp')
+        const cuntry = document.querySelector('#cunty')
+
+        btn.addEventListener('click', async () => { // Replace 'inputId' with the actual ID of your input field
+    
+    const getWeather = async () => {
+        const apiKey = '873c80b754317b6dacdff147927ee8f9'; // Your API key from OpenWeatherMap
+        const api = `https://api.openweathermap.org/data/2.5/weather?q=${inp.value}&appid=${apiKey}`;
+        cuntry.innerText=inp.value
+        
+            const response = await fetch(api);
+            const data = await response.json();
+            return data
+            console.log(data);
+
+    };
+
+    let data = await getWeather()
+    current.innerText=data.main.temp+'°C'
+    min.innerText=data.main.temp_min+'°C'
+    max.innerText=data.main.temp_max+'°C'
+    console.log(data,data.main.temp,data.main.temp_max,data.main.temp_min)
+    inp.value=''
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main_back {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(28, 79, 81, 0.5);
+        }
+
+        .main {
+            height: 500px;
+            width: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: cadetblue;
+            border-radius: 50%;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin: 5px;
+        }
+
+        button {
+            border: none;
+            height: 30px;
+            width: 50px;
+            border-radius: 5px;
+            background-color: rgb(104, 226, 230);
+            box-shadow: 2px 2px 3px rgb(154, 234, 237);
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: rgb(6, 163, 168);
+            box-shadow: 2px 2px 3px rgb(18, 82, 84);
+        }
+    </style>
+    <div class="main_back">
+        <div class="main">
+            <div style="display: flex;">
+                <h1 id="minc">100</h1>
+                <h1>:</h1>
+                <h1 id="sec">100</h1>
+                <h1>:</h1>
+                <h1 id="min">100</h1>
+                <h1>:</h1>
+                <h1 id="hours">100</h1>
+            </div>
+            <div>
+                <button id="Reset" onclick="reset()">Reset</button>
+                <button id="Start" onclick="start()">Start</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let boolem = false;
+        let minc = 0;
+        let sec = 0;
+        let min = 0;
+        let hours = 0;
+
+        function start() {
+            if (!boolem) {
+                boolem = true;
+                getdata(); // Start the timer
+                document.querySelector('#Start').innerHTML="stop"
+            } else {
+                boolem = false;
+                document.querySelector('#Start').innerHTML="Start"
+            }
+        }
+
+
+        function getdata() {
+            if (boolem) {
+                if (minc !== 100) {
+                    minc = minc + 1;
+                } else {
+                    minc = 0;
+                    sec = sec + 1;
+                }
+                if (sec == 60) {
+                    min = min + 1;
+                    sec = 0;
+                }
+                if (min == 60) {
+                    min = 0;
+                    hours = hours + 1
+                }
+                if(hours == 12){
+                    hours = 0
+                }
+
+            }
+            setTimeout(getdata, 10); 
+            document.querySelector('#minc').innerHTML=minc
+            document.querySelector('#sec').innerHTML=sec
+            document.querySelector('#min').innerHTML=min
+            document.querySelector('#hours').innerHTML=hours
+        }
+
+        function reset(){
+            minc = 0
+            sec = 0
+            min= 0
+            hours= 0
+            boolem = false
+            document.querySelector('#Start').innerHTML="Start"
+        }
+
+    </script>
+</body>
+
+</html>

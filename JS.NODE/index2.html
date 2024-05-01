@@ -1,25 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+20+Charted&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
+
 <body>
     <style>
-        *{
-            margin: 0px;
-            padding: 0px;
-            color: antiquewhite;
-            font-size: 5rem;
+        * {
+            margin: 0;
+            padding: 0;
         }
-        body{
-            background-color: aquamarine;
+
+        .main_back {
+            height: 100vh;
+            width: 100vw;
             display: flex;
-            justify-content:center;
+            justify-content: center;
             align-items: center;
         }
+
+        .main {
+            background-color: rgb(2, 84, 47);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 10px;
+            box-shadow: 2px 5px 5px rgb(13, 158, 93);
+            padding: 25px;
+        }
+
+        .inp {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        input {
+            margin-bottom: 10px;
+            border: none;
+            height: 29px;
+            width: 300px;
+            border-radius: 5px;
+            text-align: center;
+            outline: none;
+            background: transparent;
+            box-shadow: 1px 1px 3px;
+        }
+
+        button {
+            border: none;
+            height: 25px;
+            width: 100px;
+            border-radius: 5px;
+            background-color: cadetblue;
+        }
+
+        .result {
+            background-color: rgb(46, 12, 79);
+            height: 350px;
+            width: 400px;
+            margin-top: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .res-f-num {
+            height: 35px;
+            width: 120px;
+            background-color: rgb(19, 161, 114);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .res-s-num {
+            height: 280px;
+            width: 350px;
+            background-color: rgb(1, 181, 121);
+            border-radius: 5px;
+            margin: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+        }
+
+        #download {
+            margin-bottom: 5px;
+        }
+
+        button:hover {
+            background-color: rgb(5, 77, 80);
+        }
     </style>
-    <h1>Home</h1>
+    <div class="main_back">
+        <div class="main">
+            <div class="inp">
+                <input type="number" id="F-num" placeholder="enter first number">
+                <input type="number" id="L-num" placeholder="enter secend number">
+                <button>Run</button>
+            </div>
+            <div class="result resl">
+                <div class="res-f-num">
+                    <p id="l-l">5632323</p>
+                </div>
+                <div class="res-s-num">
+                    <p id="f-f"></p>
+                </div>
+                <button id="download">download</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const fNUM = document.querySelector('#F-num');
+        const lNUM = document.querySelector('#L-num');
+        const btn = document.querySelector('button');
+        const resl = document.querySelector('.resl');
+        const downloadButton = document.querySelector('#download');
+
+        const l = document.querySelector('#l-l');
+        const f = document.querySelector('#f-f');
+
+        resl.style.display = "none";
+
+        let boolem = true;
+        let LIST = [];
+
+        btn.addEventListener('click', () => {
+            if (boolem && fNUM.value !== "" && lNUM.value !== "") {
+                resl.style.display = "";
+                boolem = false;
+            } else {
+                resl.style.display = "none";
+                boolem = true;
+                lNUM.value = "";
+                fNUM.value = "";
+            }
+            LIST = []; // Clear the list before adding new elements
+
+            for (let i = 0; i < parseInt(fNUM.value); i++) {
+                LIST.push(i);
+                f.innerHTML = i
+            }
+            l.innerHTML = "40% complate"
+
+            let val;
+            val.push(push(LIST.filter(LIST < lNUM)))
+            f.innerHTML = val
+
+            l.innerHTML = '100% complate'
+
+            // Convert lNUM value to integer for numeric comparison
+            const threshold = lNUM.value;
+
+            // Filter out numbers greater than the threshold
+            const filteredNumbers = LIST.filter(number => number > threshold);
+
+            // Display the filtered numbers in the 'f' element
+            f.innerHTML = filteredNumbers.join(', ');
+            l.innerHTML = LIST.length;
+            console.log(LIST.length);
+
+            downloadButton.addEventListener('click', () => {
+                // Create a blob containing the data
+                const data = Date.now()
+                const blob = new Blob([filteredNumbers.join(',')], { type: 'text/plain' }); // Change the type to 'text/plain' for a .txt file
+
+                // Create a download link
+                const downloadLink = document.createElement('a');
+                downloadLink.href = window.URL.createObjectURL(blob);
+                downloadLink.download = `${data}.txt`; // Change the filename to 'data.txt'
+
+                // Simulate a click on the download link
+                downloadLink.click();
+            });
+            // Assuming l is an HTML element and filteredNumbers is an array
+
+        });
+    </script>
 </body>
+
 </html>

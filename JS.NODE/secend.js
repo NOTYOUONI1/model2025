@@ -1,6 +1,4 @@
-const data = require('./API.js')
-
-`document.querySelector('#name').innerHTML=data.data.name
-document.querySelector('#age').innerHTML=data.data.age
-document.querySelector('#job').innerHTML=data.data.job`
-console.log(data.data)
+const a = 'rakiba'
+for(let g in a){
+    console.log(a[g])
+}

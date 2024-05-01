@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+20+Charted&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Jersey 20 Charted", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 20px;
+        }
+
+        .main_back {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+        }
+
+        .main {
+            height: 300px;
+            background-image: url('https://i.ibb.co/yV3xDDh/black-white-illustration-black-white-theme-with-words-word-it-655090-277818.jpg');
+            background-size: cover;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        input {
+            position: relative;
+            top: -70px;
+            border: none;
+            border-bottom: 2px solid black;
+            width: 95%;
+            height: 10%;
+            border-radius: 5px;
+            outline: none;
+            text-align: center;
+        }
+
+        h1 {
+            position: relative;
+            top: -80px;
+            background-color: rgb(241, 255, 250);
+        }
+
+        button {
+            border: none;
+            margin: 5px;
+            background-color: rgb(46, 100, 102);
+            height: 30px;
+            width: 110px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .extra {
+            position: relative;
+            top: 85px;
+        }
+
+        .bg {
+            height: 120px;
+            width: 120px;
+            position: fixed;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #img {
+            width: 100px;
+            position: fixed;
+            background-color: aquamarine;
+        }
+    </style>
+    <div class="main_back">
+        <div class="main">
+            <div class="content">
+                <h1>Qr code Genarator</h1>
+                <input type="text" id="inp" placeholder="URL or Text">
+                <div class="bg">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA2Zwu5XAdNdC1WpTV36EwGDP_B2O8KWFf7Z-0OtJa_FOFyU-ngFLcdOqVRkQPlJwLTqM&usqp=CAU"
+                        id="img">
+                </div>
+                <div class="extra">
+                    <button id="btn"><i class="fa-solid fa-qrcode"></i> Genaert</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const inp = document.querySelector('#inp')
+        const btn = document.querySelector('#btn')
+        const img = document.querySelector('#img')
+
+
+        btn.addEventListener('click', () => {
+            let link = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${inp.value}`
+            img.src = link
+            inp.value = ""
+        })
+    </script>
+</body>
+
+</html>

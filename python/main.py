@@ -1,13 +1,10 @@
-import telebot
-print("dd")
+def count_vowels(s):
+    s = s.lower()
+    vowel_count = 0
+    for char in s:
+        if char in 'aeiou':
+            vowel_count += 1
+    return vowel_count
 
-token = "6956999719:AAE8NEB6-CZm3gmlpYEnbJarVBrgCZGpSFE"
-
-bot = telebot.TeleBot(token)
-
-
-@bot.message_handler({"start"})
-def start(message):
-    bot.reply_to(message,"welcomr")
-
-bot.polling()
+val = input("Enter your text: ")
+print("Number of vowels:", count_vowels(val))

@@ -4,6 +4,58 @@ detels = {
 }
 
 
+def calculator():
+    while True:
+        try:
+            val = input('Enter first number or type "exit" to quit: ')
+            if val.lower() == 'exit':
+                break
+            val = float(val)
+
+            s_val = input('Enter second number or type "exit" to quit: ')
+            if s_val.lower() == 'exit':
+                break
+            s_val = float(s_val)
+
+            t_val = input('Enter operation ( * | - | + ) or type "exit" to quit: ')
+            if t_val.lower() == 'exit':
+                break
+
+            if t_val == '*':
+                print('Result: ', val * s_val)
+            elif t_val == '-':
+                print('Result: ', val - s_val)
+            elif t_val == '+':
+                print('Result: ', val + s_val)
+            else:
+                print('Invalid operation')
+
+        except ValueError:
+            print("Invalid input. Please enter numeric values for the numbers.")
+    return
+
+def notebook():
+    while True:
+        z = input('Enetr file name $$ ')
+        if z == 'exit':
+            break
+        x = input('Write or read $$ ')
+        if x == 'exit':
+            break
+        if x == 'r':
+            with open(z,x) as file:
+                print(file.read())
+        elif x == 'w':
+            y = input('Write File $$ ')
+            if y == 'exit':
+                break
+            with open(z,x) as file:
+                print(file.write(y))
+        else:
+            print('invalid method')
+    return
+
+
 def l_o_d():
     print('list function call')
     i = input('List count: ')
@@ -72,8 +124,7 @@ def weather():
             # Make the API request
             response = requests.get(f"{base_url}?q={city_name}&appid={api_key}&units=metric")
             response.raise_for_status()  # Raise an exception for HTTP errors
-            weather_data = response.json()  # Parse the JSON response
-
+            weather_data = response.json()  # Parse the JSON respons
             # Extract and print the temperature
             temperature = weather_data['main'][tempq]
             resi = f"The current temperature in {city_name} is {temperature}°C."
@@ -100,26 +151,30 @@ def add_detels():
     return
 
 def robot():
-    vc = input('Robot on $$ ')
-    if vc == 'on':
+    import random
+    passw = random.randint(1,11)
+    print('Robot code ',passw)
+    vc = input('Robot code $$ ')
+    if int(vc) == passw:
         print('Robot on OK')
-        bool = True
-        while bool:
+        while True:
             xiixz = input('Enter Function Name or deles && ')
             func_list = {'list': l_o_d,
                          'print': print_i,
                          'mul':mul,
-                         'weather':weather
+                         'weather':weather,
+                         'calculator':calculator,
+                         'notebook':notebook
                          }
             if xiixz in func_list:
 
                 func_list[xiixz]()
-            elif xiixz == "view list":
-                print(str(func_list))
+            elif xiixz == "view f":
+                print(func_list.keys())
             elif xiixz == 'add d':
                 add_detels()
             elif xiixz == 'exit':
-                bool = False
+                break
             elif xiixz == 'view options':
                 print(f"view list \nadd d \nview d \n{func_list.keys()}")
             elif xiixz == 'view d':

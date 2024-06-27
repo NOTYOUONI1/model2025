@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2292e8d1-d1e8-4b22-bbec-7eb24b880614" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/NONE.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/NONE.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/index2.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/index2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/logic.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/logic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/mongo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/mongo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/secend.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/secend.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/text.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/text.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/uploads/1decfceefbe5638075930d39bda90047e2a1adcfr1-478-524v2_00 (1).jpg-1714119563493.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/uploads/1decfceefbe5638075930d39bda90047e2a1adcfr1-478-524v2_00 (1).jpg-1714119611326.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/uploads/JackHanma8282.png-1714119390719.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/uploads/hello.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/uploads/index.html-1714119633440.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/uploads/index.html-1714119669080.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/website/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/website/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/website/server/views/maing-learing.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/../../JS.NODE/website/server/views/maing-learing.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/website/server/views/profile.ejs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JS.NODE/website/server/views/project.ejs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../PAGE_1/INDEX.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../PAGE_1/INDEX.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../PAGE_1/logic.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../PAGE_1/logic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hh.py" beforeDir="false" afterPath="$PROJECT_DIR$/../hh.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../main.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2iNLOOApT76I1JN6OdUhktwGycb" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "ML"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2292e8d1-d1e8-4b22-bbec-7eb24b880614" name="Changes" comment="" />
+      <created>1719326054770</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1719326054770</updated>
+    </task>
+    <servers />
+  </component>
+</project>

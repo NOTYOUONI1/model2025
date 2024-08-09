@@ -1,0 +1,5 @@
+Logistic Regression Formula is 
+
+y = 1/1+e-z or y = 1/1+e-(a0+a1*x)
+
+Logistic Regression result return (data>0.5) True | (data<0.5) False

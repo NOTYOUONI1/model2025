@@ -1,0 +1,32 @@
+multiple column data to single column data outlier remove
+
+
+
+q1 = data["value"].quantile(0.25)
+q3 = data["value"].quantile(0.75)
+
+iqr = q3- q1
+
+min_range = q1 - 1.5*iqr
+max_range = q3 + 1.5 * iqr
+
+
+f = data["value"][(data["value"]>=min_range)&(data["value"]<=max_range)]
+
+f
+
+
+
+0     67.640523
+1     54.001572
+2     59.787380
+3     72.408932
+4     68.675580
+        ...    
+90    45.968231
+91    62.224451
+92    52.082750
+93    59.766390
+94    53.563664
+Name: value, Length: 95, dtype: float64
+---------------------------------------------------------------------------------------

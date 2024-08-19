@@ -1,75 +1,70 @@
 import pandas as pd
 import numpy as np
 import time
+import traceback
 from Libarys import Libary
-from bot_msgS import MsgSend
 from model_ac import *
-from database_M import Dataset
+from main_if import main_if
 
 Trades_id = 1
 
-msg_sender = MsgSend(BOT_TOKEN, GROUP_CHAT_ID)
 
 def main():
     global Trades_id
 
     while True:
-        data = Libary.Get(self=0, symbol=TICKER, scale=False, columns="Open")
-        data = np.array(data)
-        bb = Libary.calculate_bollinger_bands(data=np.array(data))
-        ask = data[-1]
+        try:
+            # Fetch data
+            data = Libary.Get(self=0,symbol=TICKER, scale=False)
 
-        levels = Libary.Levels(self=0, data=data)
-        x = data[-5:]
+            # Calculate Bollinger Bands
+            bb = Libary.calculate_bollinger_bands(data=np.array(data[bb_column]))
+            if bb is None or "X" not in bb.columns or BBU not in bb.columns or BBL not in bb.columns:
+                raise ValueError("Bollinger Bands calculation returned unexpected results")
 
-        closest_tuple = min(levels, key=lambda t: abs(t[0] - x[-1]))
-        distance = abs(closest_tuple[0] - x[-1])
+            ask = data[ask_column][-1]
 
-        upper = (bb["X"].tail(MNT) > bb["BBU_20_2.0"].tail(MNT)).sum() > 0
-        lower = (bb["X"].tail(MNT) < bb["BBL_20_2.0"].tail(MNT)).sum() > 0
+            # Get levels
+            levels = Libary.Levels(self=0,data=data[level_column])
+            if not isinstance(levels, list) or not all(isinstance(t, tuple) for t in levels):
+                raise ValueError("Libary.Levels did not return a list of tuples")
 
-        greater_count = (closest_tuple[0] > x).sum() >= 3
-        less_count = (closest_tuple[0] < x).sum() >= 3
+            x = data[level_column][-5:]
 
-        if distance < 3.5:
-            if lower and less_count:
-                msg_sender.send_message(action="Buy", symbol=TICKER, y="🍏", ask=ask, trade_id=Trades_id, HT=closest_tuple[1], strategy="Bollinger Band Strategy + TCA")
-                Dataset(action="Buy", HT=closest_tuple[1], ask=ask, Symbol=TICKER, collection_name="single", st="Bollinger Band Strategy + TCA")
-            elif upper and greater_count:
-                msg_sender.send_message(action="Sell", symbol=TICKER, y="🍎", ask=ask, trade_id=Trades_id, HT=closest_tuple[1], strategy="Bollinger Band Strategy + TCA")
-                Dataset(action="Sell", HT=closest_tuple[1], ask=ask, Symbol=TICKER, collection_name="single", st="Bollinger Band Strategy + TCA")
-            elif less_count:
-                msg_sender.send_message(action="Buy", symbol=TICKER, y="🍏", ask=ask, trade_id=Trades_id, HT=closest_tuple[1], strategy="TCA")
-                Dataset(action="Buy", HT=closest_tuple[1], ask=ask, Symbol=TICKER, collection_name="single", st="TCA")
-            elif greater_count:
-                msg_sender.send_message(action="Sell", symbol=TICKER, y="🍎", ask=ask, trade_id=Trades_id, HT=closest_tuple[1], strategy="TCA")
-                Dataset(action="Sell", HT=closest_tuple[1], ask=ask, Symbol=TICKER, collection_name="single", st="TCA")
-            else:
-                msg_sender.send_message(action="Hold", symbol=TICKER, y="🤔", ask=ask, trade_id=Trades_id, HT=closest_tuple[1], strategy="Bollinger Band Strategy + TCA")
-                Dataset(action="Hold", HT=closest_tuple[1], ask=ask, Symbol=TICKER, collection_name="single", st="Bollinger Band Strategy + TCA")
-        else:
-            if lower:
-                msg_sender.send_message(action="Buy", symbol=TICKER, y="🍏", ask=ask, trade_id=Trades_id, HT=0, strategy="Bollinger Band Strategy")
-                Dataset(action="Buy", HT=0, ask=ask, Symbol=TICKER, collection_name="single", st="Bollinger Band Strategy")
-            elif upper:
-                msg_sender.send_message(action="Sell", symbol=TICKER, y="🍎", ask=ask, trade_id=Trades_id, HT=0, strategy="Bollinger Band Strategy")
-                Dataset(action="Sell", HT=0, ask=ask, Symbol=TICKER, collection_name="single", st="Bollinger Band Strategy")
-            else:
-                msg_sender.send_message(action="Hold", symbol=TICKER, y="🤔", ask=ask, trade_id=Trades_id, HT=0, strategy="Bollinger Band Strategy")
-                Dataset(action="Hold", HT=0, ask=ask, Symbol=TICKER, collection_name="single", st="Bollinger Band Strategy")
+            # Find closest tuple and calculate distance
+            closest_tuple = min(levels, key=lambda t: abs(t[0] - x[-1]))
+            distance = abs(closest_tuple[0] - x[-1])
 
-        print(distance)
-        print()
-        print("less_count", less_count)
-        print()
-        print("greater_count", greater_count)
-        print()
-        print("lower", lower)
-        print()
-        print("upper", upper)
+            # Check conditions
+            upper = (bb["X"].tail(MNT) > bb[BBU].tail(MNT)).sum() > (bb_min_tuoch - 1)
+            lower = (bb["X"].tail(MNT) < bb[BBL].tail(MNT)).sum() > (bb_min_tuoch - 1)
 
-        Trades_id += 1
-        time.sleep(MNT * 60)
+            greater_count = (closest_tuple[0] > np.array(x)).sum() >= 3
+            less_count = (closest_tuple[0] < np.array(x)).sum() >= 3
+
+            HT = closest_tuple[1]
+
+            xyz = main_if(symbol=TICKER, sell_bb=upper, buy_bb=lower, sell_level=greater_count, buy_level=less_count, HT=HT, ask=ask, trade_id=Trades_id, distance=distance, date_x=data.index[-1])
+            
+            if xyz == False:
+                break
+            
+
+            # Print debug information
+            print(distance)
+            print("less_count", less_count)
+            print("greater_count", greater_count)
+            print("lower", lower)
+            print("upper", upper)
+
+            # Increment Trades_id and sleep
+            Trades_id += 1
+            time.sleep(MNT * 60)
+
+        except Exception as e:
+            print(f"An error occurred in main loop: {e}")
+            traceback.print_exc()
+            break
 
 if __name__ == "__main__":
     main()

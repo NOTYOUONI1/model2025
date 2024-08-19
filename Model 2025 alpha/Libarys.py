@@ -4,6 +4,9 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from pymongo import MongoClient
 import pandas_ta as ta
+import time as tm
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 class Libary:
@@ -45,3 +48,40 @@ class Libary:
         data.dropna(axis=0, inplace=True)
 
         return data
+    def Mongodb(data, url, db, col):
+    
+        data["time"] = tm.strftime('%Y-%m-%d %H:%M:%S')
+
+        client = MongoClient(url)
+        db = client[db]
+        collection = db[col]
+
+        ok = collection.insert_one(data)
+
+        return (ok.acknowledged, ok.inserted_id)
+    def backtest(real_data_index, real_data_price, result_data_index, result_data_price, result_data_action):
+    # Convert input lists to numpy arrays
+        r1 = np.array(real_data_index)
+        r2 = np.array(real_data_price)
+        d1 = np.array(result_data_index)
+        d2 = np.array(result_data_price)  # Fixed the overwriting issue
+        action = np.array(result_data_action)
+
+    # Create a plot for real data prices
+        plt.figure(figsize=(12, 6))
+        plt.plot(r1, r2, label='Real Data Price', color='blue')
+
+    # Plot vertical lines for Buy and Sell actions
+        for i in range(len(result_data_index)):
+            if action[i] == "Buy":
+                plt.axvline(x=result_data_index[i], color='green', linestyle='--', linewidth=1, label='Buy Action' if i == 0 else "")
+            else:
+                plt.axvline(x=result_data_index[i], color='red', linestyle='--', linewidth=1, label='Sell Action' if i == 0 else "")
+
+    # Add labels, legend, and title
+        plt.xlabel('Index')
+        plt.ylabel('Price')
+        plt.title('Backtest Results')
+        plt.legend(loc='best')
+        plt.grid(True)
+        plt.show()

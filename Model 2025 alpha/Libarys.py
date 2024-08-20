@@ -85,3 +85,11 @@ class Libary:
         plt.legend(loc='best')
         plt.grid(True)
         plt.show()
+
+    def supertrend(data, length, multiplier):
+        df = pd.DataFrame(data)
+
+        supertrend = ta.supertrend(df['High'], df['Low'], df['Close'], length=length, multiplier=multiplier)
+        supertrend.drop(columns=supertrend.columns[-1], inplace=True)
+        print(supertrend)
+        return supertrend

@@ -33,9 +33,9 @@ class MsgSend:
 
         # Send a funny or cute GIF based on action
         gif_url_map = {
-            "Buy": "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",  # Example GIF for Buy
-            "Sell": "https://media.giphy.com/media/3orieY3MhT8CAqX7nO/giphy.gif",  # Example GIF for Sell
-            "Hold": "https://media.giphy.com/media/l1J9ACblVmcAa5O3S/giphy.gif"   # Example GIF for Hold
+            "Buy": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTZtYXBpaGxxdjNyZ2E5b2UyYWticnRiZDJ5Njk0a29qNmZ5ZjczZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JoeEHZjvkMiWFkMKV1/giphy.gif",  # Example GIF for Buy
+            "Sell": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGQ4NWZwNDFubGk1ZjkwcjhpZTRlMnZ1b3ZkMHl5Y2F5NjZsZG50YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ycqoq4xStjWRM9w7jl/giphy.gif",  # Example GIF for Sell
+            "Hold": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTQ3aWgxYjU0b2oyeHZ6cHdhMXR4dXF3cmxham5pYXd5bG1meTE2OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RVaq71f1QGavKo239K/giphy.gif"   # Example GIF for Hold
         }
         gif_url = gif_url_map.get(action, "https://media.giphy.com/media/3o7aD3nNmsDUoO2c5O/giphy.gif")
 

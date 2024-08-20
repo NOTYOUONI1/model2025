@@ -25,7 +25,7 @@ def main():
             ask = data[ask_column][-1]
 
             # Get levels
-            levels = Libary.Levels(self=0,data=data[level_column])
+            levels = Libary.Levels(self=0,data=data[level_column].tail(320))
             if not isinstance(levels, list) or not all(isinstance(t, tuple) for t in levels):
                 raise ValueError("Libary.Levels did not return a list of tuples")
 
@@ -42,9 +42,14 @@ def main():
             greater_count = (closest_tuple[0] > np.array(x)).sum() >= 3
             less_count = (closest_tuple[0] < np.array(x)).sum() >= 3
 
+            superT = Libary.supertrend(data=data, length=superT_length, multiplier=superT_Mul)
+            super_Buy = sum(superT[super_column][-5:] < data["Open"][-5:]) > (min_super-1)
+            super_Sell = sum(superT[super_column][-5:] > data["Open"][-5:]) > (min_super-1)
+            print(super_Buy, super_Sell)
+
             HT = closest_tuple[1]
 
-            xyz = main_if(symbol=TICKER, sell_bb=upper, buy_bb=lower, sell_level=greater_count, buy_level=less_count, HT=HT, ask=ask, trade_id=Trades_id, distance=distance, date_x=data.index[-1])
+            xyz = main_if(symbol=TICKER, sell_bb=upper, buy_bb=lower, sell_level=greater_count, buy_level=less_count, HT=HT, ask=ask, trade_id=Trades_id, distance=distance, date_x=data.index[-1], super_buy=super_Buy, super_Sell=super_Sell)
             
             if xyz == False:
                 break

@@ -19,6 +19,11 @@ BBM = f"BBM_{bb_lenght}_{float(bb_std)}"
 ask_column = "Close"
 
 level_column = "Open"
-threshold_percentage=0.4
+threshold_percentage=0.1
 min_touches=4
 min_distance=15
+
+superT_length=7
+superT_Mul =3.0
+super_column = f"SUPERT_{superT_length}_{superT_Mul}"
+min_super = 5

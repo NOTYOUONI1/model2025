@@ -8,8 +8,15 @@ from main_if import main_if
 from sklearn.preprocessing import MinMaxScaler
 import yfinance
 import pandas_ta as ta
+from database_M import MongoDB
+from termcolor import colored
+from bson import ObjectId
 
-Trades_id = 1
+def tty_color(text, color):
+    return colored(text, color)
+
+mongo = MongoDB(url="mongodb://localhost:27017", db_name="M2025A")
+
 
 def main():
     global Trades_id
@@ -67,6 +74,11 @@ def main():
             ask = data[ask_column][-1]
             print(f"HT={HT}\nask={ask}")
 
+            mongo_data=mongo.find_data(col="abra gabra")[0]
+            Trades_id = mongo_data["Number of trade"]
+
+            print(tty_color(text=f"Mongo data={mongo_data} | trade id={Trades_id}", color="red"))
+
             xyz = main_if(symbol=TICKER, sell_bb=Sell_bb, buy_bb=Buy_bb, sell_level=Sell_level, buy_level=Buy_level, HT=HT, ask=ask, trade_id=Trades_id, distance=distance, date_x=data.index[-1], super_buy=super_Buy, super_Sell=super_Sell, MV=lol_result, io_buy=io_green, io_sell=io_red, io_data=data["s_Close"])
 
             if xyz is False:
@@ -74,9 +86,17 @@ def main():
             elif xyz is True:
                 print(f"All oK={xyz}")
 
+
+            mongo_data.pop("_id", None)
+            print(tty_color(text=mongo_data, color="green"))
+            mon = {"Number of trade":Trades_id+1}
+            fgx = mongo.update_data(old_data=mongo_data, new_data=mon, col="abra gabra")
+            if not fgx[0]==True:
+                print(f"MongoBD ID Update Problam")
+                break
+
             print(f"Trade Id={Trades_id}")
-            Trades_id += 1
-            time.sleep(180)  # Adjusted sleep time (3 minutes)
+            time.sleep(180)
 
         except KeyboardInterrupt:
             print("Process was manually interrupted.")

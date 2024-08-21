@@ -29,7 +29,7 @@ class MsgSend:
                 f"**Ask Price**: {ask} 💵\n\n"
                 f"**Horizontal Touch**: {HT} 🎯\n"
                 f"**Trade ID**: {trade_id} 🆔\n"
-                f"**Score__init**: {score}\n\n"
+                f"**Score**: {score}\n\n"
                 f"**Strategy.s**: {st}\n\n"
                 f"✨ May the odds be ever in your favor! ✨🍀"
             )

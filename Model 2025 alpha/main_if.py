@@ -2,6 +2,9 @@ from model_ac import *
 from bot_msgS import MsgSend
 from Libarys import Libary
 from sklearn.preprocessing import MinMaxScaler
+from database_M import MongoDB
+
+
 def tty_color(text, color):
     """
     Apply color to the terminal text.
@@ -32,7 +35,7 @@ def main_if(distance, sell_level, buy_level, buy_bb, sell_bb, HT, ask, trade_id,
         buy_result_list, sell_result_list = [], []
 
         # Calculate differences and determine action based on Ichimoku Cloud
-        diff_buy, diff_sell = abs(io_buy.iloc[-1] - io_data[-1])*10, abs(io_sell.iloc[-1] - io_data[-1])*10
+        diff_buy, diff_sell = abs(io_buy.iloc[-1] - io_data[-1])*100, abs(io_sell.iloc[-1] - io_data[-1])*100
         print(tty_color(text=f"diff_buy={diff_buy} | diff_sell={diff_sell}", color=32))
 
         if diff_buy < 1.9 or diff_sell < 1.9:
@@ -44,10 +47,10 @@ def main_if(distance, sell_level, buy_level, buy_bb, sell_bb, HT, ask, trade_id,
                 sell_result_list.append("Ichimoku")
         elif diff_sell > diff_buy:
             if sum(io_buy[-5:] < io_data[-5:]) == 5:
-                sell_result += diff_sell
+                sell_result += diff_sell/10
                 sell_result_list.append(f"Ichimoku{diff_sell}")
         elif sum(io_sell[-5:] > io_data[-5:]) == 5:
-            buy_result += diff_buy
+            buy_result += diff_buy/10
             buy_result_list.append(f"Ichimoku{diff_buy}")
 
         # Process other indicators
@@ -98,7 +101,7 @@ def main_if(distance, sell_level, buy_level, buy_bb, sell_bb, HT, ask, trade_id,
 
         # Log to MongoDB
         data = {"Symbol": symbol, "action": action, "ask": ask, "data": date_x, "buy Score": buy_result, "Sell result": sell_result}
-        Libary.Mongodb(data=data, url=mongodb_url, db="M2025A", col="BackTest")
+        MongoDB(url="mongodb://localhost:27017", db_name="M2025A").insert_data(data=data,col="BackTest")
 
     except Exception as e:
         print(f"Error: {e}")

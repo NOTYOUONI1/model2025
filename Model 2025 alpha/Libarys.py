@@ -48,17 +48,7 @@ class Libary:
         data.dropna(axis=0, inplace=True)
 
         return data
-    def Mongodb(data, url, db, col):
-    
-        data["time"] = tm.strftime('%Y-%m-%d %H:%M:%S')
 
-        client = MongoClient(url)
-        db = client[db]
-        collection = db[col]
-
-        ok = collection.insert_one(data)
-
-        return (ok.acknowledged, ok.inserted_id)
     def backtest(real_data_index, real_data_price, result_data_index, result_data_price, result_data_action):
     # Convert input lists to numpy arrays
         r1 = np.array(real_data_index)

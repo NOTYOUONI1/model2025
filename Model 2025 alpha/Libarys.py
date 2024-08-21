@@ -10,7 +10,7 @@ import numpy as np
 
 
 class Libary:
-    def Get(self=0, symbol="EURUSD=x", period='1d', interval='1m', columns=None, scale=True):
+    def Get(self=0, symbol="BTC-USD", period='1d', interval='1m', columns=None, scale=True):
         # Fetch stock data from Yahoo Finance
         data = yf.download(symbol, period=period, interval=interval)
 
@@ -91,5 +91,15 @@ class Libary:
 
         supertrend = ta.supertrend(df['High'], df['Low'], df['Close'], length=length, multiplier=multiplier)
         supertrend.drop(columns=supertrend.columns[-1], inplace=True)
-        print(supertrend)
         return supertrend
+    def plot_moving_average(data,ma_type='SMA', period=20):
+
+        data = pd.DataFrame(data, columns=["Close"])
+
+        # Calculate the Moving Average (SMA or EMA)
+        if ma_type == 'SMA':
+            data['MA'] = data['Close'].rolling(window=period).mean()
+        elif ma_type == 'EMA':
+            data['MA'] = data['Close'].ewm(span=period, adjust=False).mean()
+    
+        return data

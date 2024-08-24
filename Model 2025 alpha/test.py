@@ -1,6 +1,6 @@
-import time as th
+import time
 from main_if import main_if
 
 while True:
     main_if()
-    th.sleep(180)
+    time.sleep(180)

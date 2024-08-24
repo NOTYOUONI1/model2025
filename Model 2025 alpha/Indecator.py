@@ -22,7 +22,10 @@ def preprocess_data(data):
 
 def superTrade(data):
     try:
+        # Set the length and multiplier for the SuperTrend calculation
         length, multiplier = 10, 3.0
+
+        # Calculate SuperTrend using pandas_ta library
         supertrend = ta.supertrend(
             high=data['High'],
             low=data['Low'],
@@ -30,12 +33,28 @@ def superTrade(data):
             length=length,
             multiplier=multiplier
         )
+
+        # Rename the SuperTrend column
         supertrend = supertrend.rename(columns={f"SUPERT_{length}_{multiplier}": "SuperTrend"})
-        result = data["Close"].iloc[-5:].mean() > supertrend["SuperTrend"].iloc[-5:].mean()
-        return [(1, 0), "ST"] if result else [(0, 1), "ST"]
+
+        # Determine buy and sell signals based on SuperTrend
+        buy_signal = data["Close"].iloc[-5:].mean() > supertrend["SuperTrend"].iloc[-5:].mean()
+        sell_signal = data["Close"].iloc[-5:].mean() < supertrend["SuperTrend"].iloc[-5:].mean()
+
+        # Return the appropriate result based on the signals
+        if buy_signal:
+            return [(1, 0), "ST"]
+        elif sell_signal:
+            return [(0, 1), "ST"]
+        else:
+            return [(0, 0), "ST"]
+
     except Exception as e:
+        # Print the error message and return a default value
         print(f"SuperTrade Error: {e}")
-        return [(0, 1), "ST"]
+        return [(1, 1), "ST"]
+
+
 
 def bollinger_band(data):
     try:
@@ -49,13 +68,12 @@ def bollinger_band(data):
         return [(1, 1), "BB"]
 
 def support_resistance(data):
-    global HT
     try:
         price_to_level = 0.1
         min_touches = 4
-        min_distance = 0.5
+        min_distance = 0.09
 
-        price = np.array(data['Close'])
+        price = np.array(data['Close'][-400:])
         levels = []
         for level in price:
             touches = np.sum((price >= level - level * price_to_level / 100) & (price <= level + level * price_to_level / 100))
@@ -70,10 +88,10 @@ def support_resistance(data):
         closest_level = min(levels, key=lambda t: abs(t[0] - last_prices[-1]))
         closest_price, HT = closest_level
 
-        Sell_level = np.sum(closest_price > last_prices) >= 3
-        Buy_level = np.sum(closest_price < last_prices) >= 3
+        Sell_level = np.sum(closest_price > last_prices) >= 4
+        Buy_level = np.sum(closest_price < last_prices) >= 4
 
-        return [(1, 0), "SR"] if Buy_level else [(0, 1), "SR"] if Sell_level else [(0, 0), "SR"]
+        return [(1, 0), HT] if Buy_level else [(0, 1), HT] if Sell_level else [(0, 0), 0]
     except Exception as e:
         print(f"Support Resistance Error: {e}")
         return [(1, 1), "SR"]
@@ -119,35 +137,43 @@ def moving_average(data):
         mv = data["Close"].rolling(window=period).mean()
         o = (data["Close"].iloc[-1] - mv.iloc[-1]) * 100
 
-        return [(1, 0), "MA"] if o < 2.1 else [(0, 1), "MA"] if o > 2.1 else [(0, 0), "MA"]
+        if o > 3.5:
+            if mv[-4:]>data["Close"][-4:]:
+                return [(1, 0), 'MA']
+            else:
+                return [(0, 1), 'MA']
+        else:
+            return [(0, 0), "MA"]
     except Exception as e:
         print(f"Moving Average Error: {e}")
         return [(1, 1), "MA"]
 
 def main():
-    symbol = 'EURUSD=x'
+    symbol = 'BTC-USD'
     par_candle_power = "1m"
     total_candle_s = 400
     
     data = download_data(symbol, period="1d", interval=par_candle_power, total_candles=total_candle_s)
     
+    ask = data["Close"][-1]
+
     if data.empty:
         print("No data available. Exiting.")
         return
 
-    data = preprocess_data(data)
-    
-    global HT
-    HT = None
+    data = preprocess_data(data=data)
+
+    v =support_resistance(data)
 
     results = {
         "SuperTrade": superTrade(data)[0],
         "Bollinger Band": bollinger_band(data)[0],
-        "Support Resistance": support_resistance(data)[0],
+        "Support Resistance": v[0],
         "Ichimoku": ichimoku(data)[0],
         "Moving Average": moving_average(data)[0],
-        "HT": HT,
-        "ask":data["Close"][-1]
+        "HT": v[1],
+        "ask":ask,
+        "Symbol":symbol
     }
 
     print("Results:", results)
@@ -155,4 +181,4 @@ def main():
     return results
 
 if __name__ == "__main__":
-    main()
+    print("Call Indecator file")

@@ -1,8 +1,6 @@
-from model_ac import *
 from bot_msgS import MsgSend
-from sklearn.preprocessing import MinMaxScaler
 from database_M import MongoDB
-from Indecator import *
+from Indecator import main
 from Tool import *
 from bson import ObjectId
 from model_ac import *
@@ -26,6 +24,7 @@ def main_if():
         data = main()
 
         Symbol = data["Symbol"]
+        HT = data["HT"]
 
         # Process SuperTrade
         if bool(data["SuperTrade"][1]):
@@ -67,13 +66,8 @@ def main_if():
 
 
 
-
-
-        # Normalize and compare results
         buy_result = (buy_result / 50) * 100
         sell_result = (sell_result / 50) * 100
-
-        HT = 0
 
         if max(buy_result, sell_result) > min_score:
             if buy_result > sell_result:

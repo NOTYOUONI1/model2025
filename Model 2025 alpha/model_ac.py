@@ -4,4 +4,4 @@ GROUP_CHAT_ID = -1002249778339
 MNT = 3
 
 
-min_score = 10
+min_score = 60

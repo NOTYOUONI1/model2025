@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 import pandas_ta as ta
-from open import open
+from admin import open
 from sklearn.preprocessing import MinMaxScaler
 
 
@@ -45,16 +45,16 @@ def superTrade(data):
 
         # Return the appropriate result based on the signals
         if buy_signal:
-            return [(1, 0), "ST"]
+            return [True, False], "ST"
         elif sell_signal:
-            return [(0, 1), "ST"]
+            return [False, True], "ST"
         else:
-            return [(0, 0), "ST"]
+            return [False, False], "ST"
 
     except Exception as e:
         # Print the error message and return a default value
         print(f"SuperTrade Error: {e}")
-        return [(1, 1), "ST"]
+        return [True, True], "ST"
 
 
 def bollinger_band(data):
@@ -65,10 +65,10 @@ def bollinger_band(data):
         bb = ta.bbands(data["Close"], length=length, std=std, append=True)
         buy = sum(data["Close"].iloc[-3:] < bb[f"BBL_{length}_{float(std)}"].iloc[-3:]) > open["bollinger_band"]["Min"]
         sell = sum(data["Close"].iloc[-3:] > bb[f"BBU_{length}_{float(std)}"].iloc[-3:]) > open["bollinger_band"]["Min"]
-        return [(1, 0), "BB"] if buy else [(0, 1), "BB"] if sell else [(0, 0), "BB"]
+        return [True, False], "BB" if buy else [False, True], "BB" if sell else [False, False], "BB"
     except Exception as e:
         print(f"Bollinger Band Error: {e}")
-        return [(1, 1), "BB"]
+        return [True, True], "BB"
 
 
 def support_resistance(data):
@@ -96,10 +96,10 @@ def support_resistance(data):
         Sell_level = np.sum(closest_price > last_prices) >= open["support_resistance"]["Min"]
         Buy_level = np.sum(closest_price < last_prices) >= open["support_resistance"]["Min"]
 
-        return [(1, 0), HT] if Buy_level else [(0, 1), HT] if Sell_level else [(0, 0), 0]
+        return [True, False], HT if Buy_level else [False, True], HT if Sell_level else [False, False], 0
     except Exception as e:
         print(f"Support Resistance Error: {e}")
-        return [(1, 1), "SR"]
+        return [True, True], "SR"
 
 
 def ichimoku(data):
@@ -127,12 +127,12 @@ def ichimoku(data):
         green_distance = abs(data["Close"].iloc[-5:].mean() - ichimoku_data["Ichimoku_A"].iloc[-5:].mean())
 
         if red_distance < open["ichimoku"]["Min Distance"] or green_distance < open["ichimoku"]["Min Distance"]:
-            return [(1, 0), "Ichimoku"] if red_distance > green_distance else [(0, 1), "Ichimoku"]
+            return [True, False], "Ichimoku" if red_distance > green_distance else [False, True], "Ichimoku"
         else:
-            return [(0, 0), "Ichimoku"]
+            return [False, False], "Ichimoku"
     except Exception as e:
         print(f"Ichimoku Error: {e}")
-        return [(1, 1), "Ichimoku"]
+        return [True, True], "Ichimoku"
 
 
 def moving_average(data):
@@ -143,14 +143,46 @@ def moving_average(data):
 
         if o > open["moving_average"]["Min"]:
             if mv[-4:].mean() > data["Close"][-4:].mean():
-                return [(1, 0), 'MA']
+                return [True, False], 'MA'
             else:
-                return [(0, 1), 'MA']
+                return [False, True], 'MA'
         else:
-            return [(0, 0), "MA"]
+            return [False, False], "MA"
     except Exception as e:
         print(f"Moving Average Error: {e}")
-        return [(1, 1), "MA"]
+        return [True, True], "MA"
+def macd_signal(data):
+    try:
+        data['EMA12'] = data['Close'].ewm(span=12, adjust=False).mean()
+        data['EMA26'] = data['Close'].ewm(span=26, adjust=False).mean()
+        data['MACD'] = data['EMA12'] - data['EMA26']
+        data['Signal'] = data['MACD'].ewm(span=9, adjust=False).mean()
+        data['Histogram'] = data['MACD'] - data['Signal']
+        data['Histogram_Percentage'] = data['Histogram'] * 10000
+
+        last_histogram = data["Histogram_Percentage"].iloc[-1]
+
+        # Improved distance calculation
+        if data["Signal"][-1] != 0:
+            distance = (data["MACD"][-1] - data["Signal"][-1]) / data["Signal"][-1] * 100
+        else:
+            distance = 0
+
+        print(f"Last Histogram: {last_histogram}, Distance: {distance}")
+
+        if distance < 9:
+            return [False, False], "MACD", last_histogram
+        else:
+            if last_histogram > 10:
+                return [True, False], "MACD", last_histogram
+            elif last_histogram < -10:
+                return [False, True], "MACD", last_histogram
+            else:
+                return [True, False], "MACD", last_histogram
+    except Exception as e:
+        print(f"MACD==Error: {e}")
+        return [True, True], "MACD", distance
+
 
 
 def main():
@@ -170,11 +202,12 @@ def main():
     v = support_resistance(data)
 
     results = {
-        "SuperTrade": superTrade(data)[0],
-        "Bollinger Band": bollinger_band(data)[0],
-        "Support Resistance": v[0],
-        "Ichimoku": ichimoku(data)[0],
-        "Moving Average": moving_average(data)[0],
+        "SuperTrade": superTrade(data),
+        "Bollinger Band": bollinger_band(data),
+        "Support Resistance": v,
+        "Ichimoku": ichimoku(data),
+        "Moving Average": moving_average(data),
+        "MACD":macd_signal(data),
         "HT": v[1],
         "ask": ask,
         "Symbol": open["Symbol"]

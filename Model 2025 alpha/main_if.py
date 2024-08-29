@@ -14,7 +14,7 @@ mongo_db = MongoDB(url="mongodb://localhost:27017", db_name="M2025A")
 mongo_data = mongo_db.find_data(col="abra gabra")[0]
 trade_id = mongo_data["Number of trade"]
 
-def main_if():
+def main_if(bbP=True):
     try:
         action = "Hold"
         buy_result, sell_result = 0, 0
@@ -27,47 +27,58 @@ def main_if():
         HT = data["HT"]
 
         # Process SuperTrade
-        if bool(data["SuperTrade"][1]):
+        if not data["SuperTrade"][0]==[False, True]:
             sell_result += 10
             sell_result_list.append("ST")
-        elif bool(data["SuperTrade"][0]):
+        elif data["SuperTrade"][0]==[True, False]:
             buy_result += 10
             buy_result_list.append("ST")
 
         # Process Bollinger Band
-        if bool(data["Bollinger Band"][1]):
-            sell_result += 10
-            sell_result_list.append("BB")
-        elif bool(data["Bollinger Band"][0]):
-            buy_result+=10
-            buy_result_list.append("BB")
+
+        if bbP:
+            if not data["Bollinger Band"][0] == [False, True]:
+                sell_result += 10
+                sell_result_list.append("BB")
+            elif data["Bollinger Band"][0] == [True, False]:
+                buy_result += 10
+                buy_result_list.append("BB")
+        else:
+            pass
 
         # Process Support Resistance
-        if bool(data["Support Resistance"][1]):
+        if data["Support Resistance"][0]==[False, True]:
             sell_result += 10
             sell_result_list.append("SR")
-        elif bool(data["Support Resistance"][0]):
+        elif data["Support Resistance"][0]==[True, False]:
             buy_result += 10
             buy_result_list.append("SR")
 
-        if bool(data["Ichimoku"][1]):
+        if data["Ichimoku"][0]==[False, True]:
             sell_result += 10
             sell_result_list.append("IC")
-        elif bool(data['Ichimoku'][0]):
+        elif data['Ichimoku'][0]==[True, False]:
             buy_result += 10
             buy_result_list.append("IC")
 
-        if bool(data["Moving Average"][1]):
+        if not data["Moving Average"][0]==[False, True]:
             sell_result += 10
             sell_result_list.append("MA")
-        elif bool(data["Moving Average"][0]):
+        elif data["Moving Average"][0]==[True, False]:
             buy_result += 10
             buy_result_list.append("MA")
 
+        if not data["MACD"][0] == [False, True]:
+            sell_result += 10
+            sell_result_list.append("MACD")
+        elif data["MACD"][0] == [True, False]:
+            buy_result += 10
+            buy_result_list.append("MACD")
 
 
-        buy_result = (buy_result / 50) * 100
-        sell_result = (sell_result / 50) * 100
+
+        buy_result = (buy_result / 60) * 100
+        sell_result = (sell_result / 60) * 100
 
         if max(buy_result, sell_result) > min_score:
             if buy_result > sell_result:
@@ -77,10 +88,10 @@ def main_if():
                 msg_sender.send_message(action="Sell", symbol=Symbol, y="🍎", ask=data["ask"], trade_id=trade_id, HT=HT, score=sell_result, st=sell_result_list)
                 action = "Sell"
             else:
-                msg_sender.send_message(action="Hold", symbol=Symbol, y="🤔", ask=data['ask'], trade_id=trade_id, HT=HT, score=0, st=0)
+                msg_sender.send_message(action="Hold", symbol=Symbol, y="🤔", ask=data['ask'], trade_id=trade_id, HT=HT, score=0, st="0")
                 action = "Hold"    
         else:
-            msg_sender.send_message(action="Hold", symbol=Symbol, y="🤔", ask=data['ask'], trade_id=trade_id, HT=HT, score=0, st=0)
+            msg_sender.send_message(action="Hold", symbol=Symbol, y="🤔", ask=data['ask'], trade_id=trade_id, HT=HT, score=0, st="0")
             action = "Hold"
 
         print(tty_color(text=f"Buy Score: {buy_result} | Sell Score: {sell_result}", color="red"))
@@ -103,6 +114,3 @@ def main_if():
         return False
     return True
 
-while True:
-    main_if()
-    time.sleep(180)

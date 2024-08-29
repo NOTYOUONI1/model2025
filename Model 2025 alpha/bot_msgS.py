@@ -1,6 +1,5 @@
 import telebot
 import time
-from open import open
 
 class MsgSend:
     def __init__(self, bot_token, group_chat_id):
@@ -23,8 +22,8 @@ class MsgSend:
             gif_url = self.gif_url_map.get(action, "https://media.giphy.com/media/3o7aD3nNmsDUoO2c5O/giphy.gif")
 
             message = (
-                f"🤖 **{open["PY"]}**\n\n"
-                f"**SYMBOL**: {open["Symbol"]} 💲\n"
+                f"🤖 **🌸 Model 2025 Alpha 🌸**\n\n"
+                f"**SYMBOL**: {symbol} 💲\n"
                 f"**TIME**: {time.strftime('%Y-%m-%d %H:%M:%S')} ⏰\n"
                 f"**{y} ACTION**: {action} {emoji}\n\n"
                 f"**Ask Price**: {ask} 💵\n\n"
